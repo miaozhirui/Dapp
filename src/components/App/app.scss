@@ -1,0 +1,55 @@
+input,
+dt,
+dd,
+li,
+dd,
+ul,
+dl,p {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    display: block;
+}
+a{ 
+text-decoration:none; 
+color:#333; 
+} 
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+    margin: 0;
+}
+html{
+	margin: 0;
+	padding:0;
+	font-family:pingfontweb,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft Yahei,Hiragino Sans GB,Microsoft Jhenghei,sans-serif;
+	font-weight:200; 
+}
+body {
+	margin:0;
+	padding:0;
+	background: #f3f6f9;
+}
+.mgbtm80 {
+	margin-bottom: 80px;
+}
+input,button {
+	background:none;  
+	outline:none;  
+	border:0px;
+}
+::-webkit-input-placeholder {
+	color:#9fadc4;
+	font-size: 14px;
+	font-weight: 200;
+}
+
