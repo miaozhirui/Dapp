@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import storage from 'good-storage';
+import { utils } from 'libs';
 
 export default class BetResult extends Component {
 
     constructor(props){
         
         super(props)
-
+        
         this.state = {
 
             isShowWait:true,
             isShowWin:false,
             isShowLost:false,
             time:10,
-            // time:10
             betEth:'',
             winEth:'',
             points:"",
@@ -24,7 +24,6 @@ export default class BetResult extends Component {
 
     componentDidMount(){
 
-        // let counter = 10;
         let counter = 10;
         
         let timer = setInterval(() => {
@@ -48,8 +47,9 @@ export default class BetResult extends Component {
     showResultPage() {
 
         let gameOutCome = storage.get('gameOutCome');
+        
+        let winEth = +gameOutCome.winEth;
 
-        console.log(gameOutCome);
         if(gameOutCome.gameResult == 1){
 
             this.setState({
@@ -61,6 +61,9 @@ export default class BetResult extends Component {
                 points:gameOutCome.points,
                 officalPoint:gameOutCome.officalPoint
             })
+            
+            let num = utils.strip(this.props.token+winEth)
+            this.props.updateToken(num);
         }
 
         if(gameOutCome.gameResult == 0){
@@ -74,6 +77,10 @@ export default class BetResult extends Component {
                 points:gameOutCome.points,
                 officalPoint:gameOutCome.officalPoint
             })
+
+            let num = utils.strip(this.props.token-winEth)
+
+            this.props.updateToken(utils.strip(num));
         }
     }
     

@@ -11,7 +11,12 @@ export default function getAccount() {
         })
 
         promise.then(res => {
+            
+            if(res.code === -1) {
 
+                return;
+            }
+            
             resolve(res);
         })
     })

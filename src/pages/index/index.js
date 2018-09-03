@@ -17,7 +17,7 @@ import storage from 'good-storage';
 import getGameHistory from './other/getGameHistory';
 import getAccount from './other/getAccount';
      
-moment.locale('zh-cn')  
+moment.locale('zh-cn')   
   
 export default class Index extends Component {
     constructor(props) {
@@ -69,9 +69,6 @@ export default class Index extends Component {
         judgeUserIsLogin.init(this);
         getGameHistory.call(this);
         
-
-        if(!this.state.isLogin) return;
-
         getAccount().then(data => {
 
             this.setState({

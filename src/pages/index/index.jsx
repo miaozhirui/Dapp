@@ -40,6 +40,8 @@
         {
             this.state.isShowBetResult ?
                 <BetReult
+                token = {this.state.token}
+                updateToken = {this.updateToken.bind(this)}
                 closePop = {this.closePop.bind(this)}
                 />
             :""

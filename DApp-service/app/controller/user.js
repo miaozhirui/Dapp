@@ -103,7 +103,9 @@ module.exports = class Login extends BaseController {
         if (userInfo) {
 
 
-            this.success(userInfo);
+            this.success({
+                isLogin:true
+            });
         } else {
 
             this.success({

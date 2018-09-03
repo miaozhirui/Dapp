@@ -11,6 +11,15 @@ module.exports = class Account extends BaseController {
         // console.log(userInfo);
         try{
             
+            if(!userInfo){
+
+                this.success({
+                    
+                    code:-1,
+                    message: '用户未登录'
+                })
+                return;
+            }
             let userName = userInfo.userName;
        
             let info = await ctx.model.User.findOne({ userName });
