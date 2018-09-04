@@ -29,7 +29,7 @@ const devConfig = {
         historyApiFallback: true,
         proxy: [{
           context: ['/api/'],
-          target:"http://localhost:7001",
+          target:"http://localhost:7002",
           // target: 'http://127.0.0.1:8888',
           secure: false
         }]

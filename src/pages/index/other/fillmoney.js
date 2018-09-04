@@ -6,8 +6,15 @@ import { utils } from 'libs';
 import storage from 'good-storage';
 
 export default function fillmoney(opt) {
+    
+    let self = this;
 
     return new Promise((resolve, reject) => {
+
+        this.setState({
+            loading:true
+        })
+        let fillRate = 0.01;
 
         pageWeb3.init(); //检查metaMask的网络情况
 
@@ -16,17 +23,24 @@ export default function fillmoney(opt) {
         let web3 = pageWeb3.web3;
         let ethNum = opt.num;
         let self = this;
+        console.log(accounts)
 
         web3.eth.sendTransaction({
 
             from: accounts[0],
             to: officialEthAddress,
-            value: web3.toWei(ethNum, 'ether')
-
+            value: web3.toWei(ethNum, 'ether'),
+            gasPrice:web3.toWei(ethNum*fillRate, 'GWEI')
         }, function(err, receipt) {
 
             if (err) {
-                message.error('您拒绝了充值请求:(');
+
+                message.error('充值失败:(');
+
+                self.setState({
+
+                    loading: false
+                })
                 return;
             }
 
@@ -54,6 +68,11 @@ export default function fillmoney(opt) {
                     let token = utils.strip(res.token);
 
                     message.success('充值成功');
+
+                    self.setState({
+
+                        loading: false
+                    })
                     resolve(res);
                 })
             })

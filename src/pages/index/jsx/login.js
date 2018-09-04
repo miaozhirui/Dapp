@@ -38,10 +38,9 @@ export default class Login extends Component{
                 return ;
             }
             
-            storage.set('userInfo', res);
             message.success('登录成功，请下注');
-  
-            this.props.loginSuccessCb();
+            
+            this.props.loginSuccessCb(res);
        }) 
     }
 

@@ -1,4 +1,4 @@
 export default {
 
-    officialEthAddress: "0xEdd2b7d01F82C0575638AFF8D48976DD153C5545"
+    officialEthAddress: "0x461f1091e3225F67453F60181b4122d58cf73Cd5"
 }

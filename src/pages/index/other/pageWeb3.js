@@ -77,11 +77,13 @@ class pageWeb3 {
     initWeb3NetWork() {
 
         this.web3.version.getNetwork((err, netId) => {
-
+            
+            console.log(netId)
             switch (netId) {
 
                 case "5777":
                 case "1":
+                case "3":
 
                     // this.context.setState({
 

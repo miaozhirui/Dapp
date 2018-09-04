@@ -24,10 +24,10 @@ export default class Account extends Component{
 
     fillMoney() {
         
-
+     
         let num = this.refs.ethNum.value;
-       
-        fillmoney({ num }).then(data=>{
+        
+        fillmoney.call(this.props.context, { num }).then(data=>{
 
             this.setState({
 

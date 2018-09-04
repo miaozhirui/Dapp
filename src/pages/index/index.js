@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import './index.less';
-import dice2Data from './other/dice';
-import eths from './other/eths';
+import dice2Data from './other/dice';  
+import eths from './other/eths'; 
 import pageWeb3 from './other/pageWeb3';
 import judgeUserIsLogin from './other/judgeUserIsLogin';
 import moment from 'moment'; 
 import { utils } from 'libs';     
 import Login from './jsx/login';  
-import Register from './jsx/register';
+import Register from './jsx/register'; 
 import toBetAction from './other/toBetAction';
 import Account from './jsx/account';
 import BetReult from './jsx/bet_result';
@@ -16,7 +16,8 @@ import RechargeWithDraw from './jsx/recharge_withdraw';
 import storage from 'good-storage';
 import getGameHistory from './other/getGameHistory';
 import getAccount from './other/getAccount';
-     
+import {Spin} from 'antd';
+      
 moment.locale('zh-cn')   
   
 export default class Index extends Component {
@@ -42,10 +43,10 @@ export default class Index extends Component {
         this.minEth = eths[0].value;
  
         this.state = { 
-            
+            loading:false,
             token:0,
             winProb:winProb,
-            odds:odds, 
+            odds:odds,  
             dice2: this.dice2Data, 
             eths,
             eth:eths[0].value,  
@@ -297,7 +298,7 @@ export default class Index extends Component {
                 })
             })
         })   
-    }
+    } 
 
     toLogin() { 
 
@@ -307,12 +308,16 @@ export default class Index extends Component {
         })
     }
 
-    loginSuccessCb() {
+    loginSuccessCb(data) {
         
+        console.log(data);
+
+
         this.setState({
 
             isLogin: true,
-            isShowLogin: false
+            isShowLogin: false,
+            token:utils.strip(data.token)
         })
     }
  
