@@ -9,7 +9,7 @@
     "dev": "webpack-dev-server --config webpack.dev.config.js --color --progress --hot",
     "build": "webpack --config webpack.config.js",
     "mock": "json-server mock/mock.js --watch --port 8090",
-    "mockdev": "npm run mock & npm start",
+    "mockdev": "npm run mock & npm start"
     
   },
   "keywords": [
