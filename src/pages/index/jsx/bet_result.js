@@ -49,6 +49,7 @@ export default class BetResult extends Component {
         let gameOutCome = storage.get('gameOutCome');
         
         let winEth = +gameOutCome.winEth;
+        let num;
 
         if(gameOutCome.gameResult == 1){
 
@@ -62,8 +63,7 @@ export default class BetResult extends Component {
                 officalPoint:gameOutCome.officalPoint
             })
             
-            let num = utils.strip(this.props.token+winEth)
-            this.props.updateToken(num);
+            num = utils.strip(+this.props.token+winEth)
         }
 
         if(gameOutCome.gameResult == 0){
@@ -77,11 +77,11 @@ export default class BetResult extends Component {
                 points:gameOutCome.points,
                 officalPoint:gameOutCome.officalPoint
             })
-
-            let num = utils.strip(this.props.token-winEth)
-
-            this.props.updateToken(utils.strip(num));
+            num = utils.strip(+this.props.token - winEth)
+            
         }
+      
+        this.props.updateToken(num);
     }
     
     playAgain() {

@@ -119,6 +119,10 @@ export function isEmpty(str) {
 }
 
 export function strip(num, precision = 12) {
-    
-  return +parseFloat(num.toPrecision(precision));
+  
+  num = +num
+
+  num = parseFloat(+num.toPrecision(precision));
+
+  return num.toFixed(2);
 }

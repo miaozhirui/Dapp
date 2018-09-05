@@ -135,7 +135,7 @@
                     {
                         this.state.eths.map((item, index) => (
                                 
-                             <span className="icon" key={index} onClick={() => this.changeEth(item.value)}>{item.name}</span>
+                             <span className={classnames('icon', {disabled:item.disabled})} key={index} onClick={() => this.changeEth(item)}>{item.name}</span>
                         ))
                     }
                    
@@ -143,7 +143,9 @@
                 <div className="write-nums">
                     <div className="left" onClick={this.decreaseEth.bind(this)}>-</div>
                     <div className="center">
-                        <input type="text" value={this.state.eth} onChange={this.ethInput.bind(this)}/>
+                        <input ref="bet" type="text" value={this.state.eth}
+                         onChange={e=>this.changeEthInput(e)}
+                         onBlur={this.blurEthInput.bind(this)}/>
                     </div>
                     <div className="right" onClick={this.increaseEth.bind(this)}>+</div>
                 </div>
@@ -169,7 +171,7 @@
                 </div>
                 <div className="bet">
                     <h3>赢得投注</h3>
-                    {/*{this.state.odds}*/}<p>{this.state.winEth}</p>
+                    <p>{this.state.winEth}</p>
                     {/*<p>您将赢得{this.state.winEth}以太幣</p>*/}
                     {/*<p>3% 费用，0.001以太幣累积大奖</p>*/}
                 </div>

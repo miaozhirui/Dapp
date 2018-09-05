@@ -24,7 +24,7 @@ export default class Index extends Component {
     constructor(props) {
    
         super(props)     
-                 
+
         this.dice2Data = dice2Data; 
         this.selectedDice = [];
         this.currentSelected = {};
@@ -39,9 +39,6 @@ export default class Index extends Component {
         let odds = this.getOdds(this.selectedDice.length, this.dice2Data.length);
         let winEth = this.calculateEth(eths[0].value, odds);
 
-        this.maxEth = eths[eths.length-1].value;
-        this.minEth = eths[0].value;
- 
         this.state = { 
             loading:false,
             token:0,
@@ -60,11 +57,59 @@ export default class Index extends Component {
             isShowBetResult: false,//是否显示下注结果页面
             isShowRechargeWithDraw:false,//是否显示充值页面
         } 
-  
-    }  
- 
+        
+   
+    }   
+
+    updateBet() {
+        
+        let winProb = utils.strip(this.getPercent(this.selectedDice.length, this.dice2Data.length));//获取获胜率
+        let odds = this.getOdds(this.selectedDice.length, this.dice2Data.length);//赔率
+        this.maxBet = this.getMaxBet(odds);//最大下注
+
+        let bet = utils.strip(+this.refs.bet.value);//设置下注量
+
+        let dice2Data = this.dice2Data; //更新骰子的显示情况
+        
+        if(bet > this.maxBet) { //越界判断，当输入框的值大于最大值，就设置成最大值
+
+            bet = utils.strip(this.maxBet);
+        }
+       
+        let winEth = utils.strip(bet*odds);//用户可以赢得的钱
+
+        eths.map(item => {
+
+            if(item.value>this.maxBet && item.name!='最大'){
+
+                item.disabled = true;
+            } else {
+
+                item.disabled = false;
+            }
+        })
+        console.log(this.maxBet, eths)
+        
+        this.setState({
+
+            winProb,//设置获胜率
+            winEth,//设置可赢得钱
+            dice2Data,//重置骰子的选择情况
+            eths,//重置可选择的下注量
+            eth: bet
+        })
+    }
+
+    getMaxBet(odds) {
+        
+        let maxWin = 1;//最大的存赢钱
+        return maxWin/(odds-1);
+    }
+
     componentDidMount() { 
- 
+        
+        this.updateBet();
+
         // pageWeb3.init(this);
          
         judgeUserIsLogin.init(this);
@@ -127,58 +172,63 @@ export default class Index extends Component {
                 this.limitDiceMax();
 
             } 
-        }
+        } 
 
         this.previousSelected = this.currentSelected;
-
-        let winProb = this.getPercent(this.selectedDice.length, this.dice2Data.length);
-        let odds = this.getOdds(this.selectedDice.length, this.dice2Data.length);
-        let winEth = this.calculateEth(this.state.eth, odds);
+        
+        this.updateBet();
        
-        this.setState({
-            winProb: winProb,
-            odds:odds, 
-            dice2: this.dice2Data,
-            winEth
-        })
     } 
 
-    changeEth(value) {
+    changeEth(item) {
         
-        let winEth = this.calculateEth(value, this.state.odds);
-        this.setState({
+        if(item.disabled) return;
 
-            eth:value,
-            winEth
-        })
+        if(item.name=='最大'){
+
+            item.value = +this.maxBet;
+        }
+
+        this.refs.bet.value = item.value;
+        
+
+        this.updateBet();
+    }  
+
+    blurEthInput(e) {
+        
+        let bet = +e.target.value;
+
+        if(bet>this.maxBet) {
+
+            bet = this.maxBet
+        }
+
+        this.refs.bet.value = bet;
+
+        this.updateBet();
+        
     }
-
-    ethInput(e) {
-        
-        let eth = e.target.value;
-
+    changeEthInput(e) {
 
         this.setState({
 
-            eth, 
+            eth:e.target.value
         })
     }
     
     //增加eth
     increaseEth() {
         
-        let eth = this.state.eth + 0.01;
+        let eth = +this.state.eth + 0.01;
 
-        eth = +(eth.toFixed(2));
+        if(eth >= this.maxBet) {
 
-        if(eth >= this.maxEth) {
-
-            eth = this.maxEth
+            eth = this.maxBet
         }
-
-        let winEth = this.calculateEth(eth, this.state.odds);
-
-        this.setState({ eth, winEth })
+        
+        this.refs.bet.value = eth;
+        this.updateBet();
     }
 
     //减少eth
@@ -186,16 +236,13 @@ export default class Index extends Component {
 
         let eth = this.state.eth - 0.01;
 
-        eth = +(eth.toFixed(2));
-
         if(eth < 0.01) {
 
             eth = 0.01;
         }
-        
-        let winEth = this.calculateEth(eth, this.state.odds);
 
-        this.setState({ eth, winEth })
+        this.refs.bet.value = eth;
+        this.updateBet();
     }
     
     //计算用户得到多少eth
@@ -236,12 +283,12 @@ export default class Index extends Component {
     
     getPercent(a, b) { 
 
-        return parseFloat(((a/b)*100).toFixed(2));
+        return (a/b)*100;
     }
 
     getOdds(a, b) {
 
-        return parseFloat(((b/a)*0.97).toFixed(2));
+        return (b/a)*0.97;
     }
         
     //用户下注请求
@@ -250,54 +297,6 @@ export default class Index extends Component {
         toBetAction.call(this);
 
         return;
-
-
-
-        let accounts = pageWeb3.accounts;
-        let web3 = pageWeb3.web3;
-        
-        console.log(accounts)
-        web3.eth.sendTransaction({  
-
-            from:accounts[0],  
-            to:this.officialEthAddress,
-            value: web3.toWei(this.state.eth, 'ether')
-        }, function(err, receipt) {
-
-            if(err) { 
- 
-                console.log('您拒绝了下注请求:(');
-                return;
-            } 
-            
-
-            const result = web3.eth.getTransaction(receipt, function(err, data) {
-
-                if(err) { return }
-                
-                console.log(data)
- 
-                let eth = web3.fromWei(data.value.toNumber(), 'ether');//用户转的eth
-                let gasPrice = web3.fromWei(data.gasPrice.toNumber(), 'ether'); //用户的转的gas费用
-                let time = moment().format('YYYY/MM/DD h:mm:ss a'); //转账成功的时间
-                let userMoney = eth; //用户转了多少个eth给我们，我就给它多少代币
-                let userEthAddress = accounts[0]; //用户eth的钱包地址
-                let officialEthAddress = this.officialEthAddress //官方自己的钱包地址
-
-                console.log(eth, gasPrice, userMoney, userEthAddress, officialEthAddress, time)
-
-                let promise = utils.fetch({
-
-                    url: '/saveTransferInfo',
-                    data: { eth, gasPrice, userMoney, userEthAddress, officialEthAddress, receipt, time }
-                })
-
-                promise.then(res => {
-
-                    console.log(res)
-                })
-            })
-        })   
     } 
 
     toLogin() { 
