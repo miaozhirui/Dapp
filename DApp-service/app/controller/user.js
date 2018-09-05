@@ -158,7 +158,7 @@ module.exports = class Login extends BaseController {
         let { ctx } = this;
         
         let bodyParams = ctx.request.body;
-        let officalPoint = Math.floor(Math.random()*5 + 1);
+        let officalPoint = Math.floor(Math.random()*6 + 1);
         let gameResult = bodyParams.points.indexOf(officalPoint) > -1 ? 1 : 0;//1代表用赢了，0代表用户输了
 
         let betEth = bodyParams.betEth,

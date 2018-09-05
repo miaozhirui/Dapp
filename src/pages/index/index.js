@@ -65,17 +65,16 @@ export default class Index extends Component {
         
         let winProb = utils.strip(this.getPercent(this.selectedDice.length, this.dice2Data.length));//获取获胜率
         let odds = this.getOdds(this.selectedDice.length, this.dice2Data.length);//赔率
-        this.maxBet = this.getMaxBet(odds);//最大下注
-
-        let bet = utils.strip(+this.refs.bet.value);//设置下注量
+        this.maxBet = this.getMaxBet(odds).toFixed(2);//最大下注
+        
+        let bet = +this.refs.bet.value;//设置下注量
 
         let dice2Data = this.dice2Data; //更新骰子的显示情况
-        
+       
         if(bet > this.maxBet) { //越界判断，当输入框的值大于最大值，就设置成最大值
 
-            bet = utils.strip(this.maxBet);
+            bet = +this.maxBet;
         }
-       
         let winEth = utils.strip(bet*odds);//用户可以赢得的钱
 
         eths.map(item => {
@@ -88,7 +87,6 @@ export default class Index extends Component {
                 item.disabled = false;
             }
         })
-        console.log(this.maxBet, eths)
         
         this.setState({
 
@@ -96,7 +94,7 @@ export default class Index extends Component {
             winEth,//设置可赢得钱
             dice2Data,//重置骰子的选择情况
             eths,//重置可选择的下注量
-            eth: (+bet).toFixed(2)
+            eth: bet
         })
     }
 
