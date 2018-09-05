@@ -7,7 +7,7 @@ import pageWeb3 from './other/pageWeb3';
 import judgeUserIsLogin from './other/judgeUserIsLogin';
 import moment from 'moment'; 
 import { utils } from 'libs';     
-import Login from './jsx/login';  
+import Login from './jsx/login';   
 import Register from './jsx/register'; 
 import toBetAction from './other/toBetAction';
 import Account from './jsx/account';
@@ -20,7 +20,7 @@ import {Spin} from 'antd';
       
 moment.locale('zh-cn')   
   
-export default class Index extends Component {
+export default class Index extends Component { 
     constructor(props) {
    
         super(props)     

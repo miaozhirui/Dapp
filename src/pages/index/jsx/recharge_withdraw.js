@@ -96,7 +96,7 @@ export default class RechargeWithDraw extends Component {
     recharge() {
         
         let num = this.refs.recharge.value;
-        console.log(this.props.context)
+
         fillmoney.call(this.props.context, { num }).then(data=>{
 
             this.setState({

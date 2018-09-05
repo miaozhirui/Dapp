@@ -89,7 +89,7 @@
                                 this.state.gameHistoryList.map((item, index) => (
                 
                                         <li key={index}>
-                                            <span className="address">{item.userAddress}</span>
+                                            <span className="address">{item.userAddress.slice(0,8)}</span>
                                             <span className="amount">
                                                 <p>
                                                  {

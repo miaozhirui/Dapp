@@ -181,15 +181,17 @@ module.exports = class Login extends BaseController {
           })  
 
           let userName = ctx.session.userInfo.userName;
+          let betEth = +bodyParams.betEth;
+          let winEth = +bodyParams.winEth;
             
             if(gameResult === 1) {//用户赢了，加
                 
-                await ctx.model.User.update({userName}, {$inc:{token: Number(bodyParams.winEth)}});
+                await ctx.model.User.update({userName}, {$inc:{token: Number(winEth-betEth)}});
             } 
 
             if(gameResult === 0) {//用户输了，减
 
-                await ctx.model.User.update({userName}, {$inc:{token: - Number(bodyParams.betEth)}})
+                await ctx.model.User.update({userName}, {$inc:{token: - Number(betEth)}})
             }
             
             let userInfo = await ctx.model.User.findOne();
