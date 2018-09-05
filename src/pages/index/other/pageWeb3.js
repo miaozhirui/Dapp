@@ -52,7 +52,7 @@ class pageWeb3 {
                     content: '请登录MetaMask以继续'
                 })
 
-                this.setState({
+                this.context.setState({
 
                     loading: false
                 })
@@ -102,7 +102,7 @@ class pageWeb3 {
                         content: '我们的游戏仅在主网上提供 - 请通过Metamask进行切换'
                     })
 
-                    this.setState({
+                    this.context.setState({
 
                         loading:false
                     })

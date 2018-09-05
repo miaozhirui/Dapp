@@ -11,7 +11,7 @@ export default function fillmoney(opt) {
 
     return new Promise((resolve, reject) => {
         
-        pageWeb3.init.call(this); //检查metaMask的网络情况
+        pageWeb3.init(this); //检查metaMask的网络情况
 
         if(!pageWeb3.web3) return;
 
