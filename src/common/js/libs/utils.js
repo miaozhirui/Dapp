@@ -124,5 +124,5 @@ export function strip(num, precision = 12) {
 
   num = parseFloat(+num.toPrecision(precision));
 
-  return num.toFixed(2);
+  return num.toFixed(4);
 }

@@ -92,11 +92,11 @@ export default class Index extends Component {
         
         this.setState({
 
-            winProb,//设置获胜率
+            winProb:(+winProb).toFixed(2),//设置获胜率
             winEth,//设置可赢得钱
             dice2Data,//重置骰子的选择情况
             eths,//重置可选择的下注量
-            eth: bet
+            eth: (+bet).toFixed(2)
         })
     }
 

@@ -10,8 +10,8 @@ export default [
         disabled:false
     },
     {
-        value:0.70,
-        name:0.70,
+        value:0.15,
+        name:0.15,
         disabled:false,
     }, 
     {
