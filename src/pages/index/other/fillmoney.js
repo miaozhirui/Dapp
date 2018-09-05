@@ -10,21 +10,24 @@ export default function fillmoney(opt) {
     let self = this;
 
     return new Promise((resolve, reject) => {
+        
+        pageWeb3.init.call(this); //检查metaMask的网络情况
+
+        if(!pageWeb3.web3) return;
 
         this.setState({
             loading:true
         })
+
         let fillRate = 0.01;
 
-        pageWeb3.init(); //检查metaMask的网络情况
 
         let officialEthAddress = config.officialEthAddress;
         let accounts = pageWeb3.accounts;
         let web3 = pageWeb3.web3;
         let ethNum = opt.num;
         let self = this;
-        console.log(accounts)
-
+        
         web3.eth.sendTransaction({
 
             from: accounts[0],

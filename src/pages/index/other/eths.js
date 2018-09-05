@@ -5,13 +5,13 @@ export default [
         disabled:false
     },
     {
-        value: 0.1,
-        name:0.1,
+        value: 0.10,
+        name:0.10,
         disabled:false
     },
     {
-        value:0.7,
-        name:0.7,
+        value:0.70,
+        name:0.70,
         disabled:false,
     }, 
     {

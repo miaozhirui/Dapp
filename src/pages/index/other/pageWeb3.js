@@ -1,5 +1,5 @@
 import { Modal } from 'antd';
-
+import React from 'react';
 class pageWeb3 {
 
     constructor() {
@@ -29,7 +29,7 @@ class pageWeb3 {
 
             Modal.warning({
                 title:"安装MetaMask",
-                content: '<p>您需要一个兼容Web3的钱包来玩我们的游戏</p><a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en">获取MetaMask</a>'
+                content: <div><p>您需要一个兼容Web3的钱包来玩我们的游戏</p><a style={{color:'#2D1662'}} href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en">获取MetaMask</a></div>
             })
 
             return false;
@@ -50,6 +50,11 @@ class pageWeb3 {
 
                     title: '登录MetaMask',
                     content: '请登录MetaMask以继续'
+                })
+
+                this.setState({
+
+                    loading: false
                 })
           
                 let timer = setInterval(() => {
@@ -95,6 +100,11 @@ class pageWeb3 {
                     Modal.warning({
                         title: '切换到主网',
                         content: '我们的游戏仅在主网上提供 - 请通过Metamask进行切换'
+                    })
+
+                    this.setState({
+
+                        loading:false
                     })
             }
         })
