@@ -67,7 +67,7 @@ export default class Index extends Component {
         let odds = this.getOdds(this.selectedDice.length, this.dice2Data.length);//赔率
         this.maxBet = this.getMaxBet(odds).toFixed(2);//最大下注
         
-        let bet = +this.refs.bet.value;//设置下注量
+        let bet = (+this.refs.bet.value).toFixed(2);//设置下注量
 
         let dice2Data = this.dice2Data; //更新骰子的显示情况
        
@@ -87,7 +87,7 @@ export default class Index extends Component {
                 item.disabled = false;
             }
         })
-        
+
         this.setState({
 
             winProb:(+winProb).toFixed(2),//设置获胜率

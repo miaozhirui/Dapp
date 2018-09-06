@@ -8,7 +8,7 @@ module.exports = class GameController extends BaseController{
 
         try{
             
-            let list = await ctx.model.GameRecord.find().sort({_id:-1}).limit(5);
+            let list = await ctx.model.GameRecord.find().sort({_id:-1}).limit(50);
 
             this.success(list)
         } catch(err){
