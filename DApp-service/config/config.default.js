@@ -35,7 +35,7 @@ module.exports = appInfo => {
   config.mongoose = {
 
       client: {
-          url: 'mongodb://127.0.0.1/dice-game'
+          url: 'mongodb://credan:Credan!88@127.0.0.1/dice-game'
       }
   }
 

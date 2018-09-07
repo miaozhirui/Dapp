@@ -286,7 +286,7 @@ export default class Index extends Component {
 
     getOdds(a, b) {
 
-        return (b/a)*0.97;
+        return (b/a)*0.98;
     }
         
     //用户下注请求
