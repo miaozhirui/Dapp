@@ -1,19 +1,29 @@
-import { utils } from 'libs'; 
+import { utils } from 'libs';
 
 export default function() {
 
-    
-    let promise = utils.fetch({
 
-        method: 'get',
-        url: '/api/game/getHistoryList'
-    })
 
-    promise.then(res => {
 
-        this.setState({
+    let getHistory = () => {
 
-            gameHistoryList: res
+        let promise = utils.fetch({
+
+            method: 'get',
+            url: '/api/game/getHistoryList'
         })
-    })
+
+        promise.then(res => {
+
+            this.setState({
+
+                gameHistoryList: res
+            })
+        })
+    }
+
+
+    setInterval(getHistory, 3000);
+
+    getHistory();
 }
