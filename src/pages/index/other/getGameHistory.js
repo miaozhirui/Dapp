@@ -22,8 +22,10 @@ export default function() {
         })
     }
 
+    setInterval(() => {
 
-    setInterval(getHistory, 3000);
+        getHistory()
+    }, 3000)
 
     getHistory();
 }
