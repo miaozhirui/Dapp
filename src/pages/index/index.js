@@ -13,6 +13,7 @@ import toBetAction from './other/toBetAction';
 import Account from './jsx/account';
 import BetReult from './jsx/bet_result';
 import RechargeWithDraw from './jsx/recharge_withdraw';
+import Loading from './jsx/loading';
 import storage from 'good-storage';
 import getGameHistory from './other/getGameHistory';
 import getAccount from './other/getAccount';
@@ -28,8 +29,8 @@ export default class Index extends Component {
         this.dice2Data = dice2Data; 
         this.selectedDice = [];
         this.currentSelected = {};
-        this.previousSelected = {};  
- 
+        this.previousSelected = {};   
+  
         dice2Data.forEach(item => { 
  
             !!item.selected && this.selectedDice.push(item); 
@@ -40,26 +41,26 @@ export default class Index extends Component {
         let winEth = this.calculateEth(eths[0].value, odds);
 
         this.state = { 
-            loading:false,
+            isLoading:false,
             token:0,
             winProb:winProb,
             odds:odds,  
             dice2: this.dice2Data, 
-            eths,
-            eth:eths[0].value,  
+            eths, 
+            eth:eths[0].value,   
             winEth,
             metaMask: 0,//1: 用户未登录，2: 用户metaMask的所处的网络不对，3:用户当前账号正常
             gameHistoryList:[],
             isLogin: false,
-            isShowLogin:false,
+            isShowLogin:false, 
             isShowRegister: false,
             isShowAccount:false,//是否显示余额不足页面
             isShowBetResult: false,//是否显示下注结果页面
             isShowRechargeWithDraw:false,//是否显示充值页面
         } 
-        
+         
    
-    }   
+    }    
 
     updateBet() {
         
@@ -399,6 +400,8 @@ export default class Index extends Component {
     render() {
         
         let { metaMask, isLogin } = this.state;
+
+        console.log(this.state.isLoading)
         return (jsx); 
     }
 }

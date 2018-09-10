@@ -6,10 +6,21 @@ import storage from 'good-storage';
 
 export default class Register extends Component{
 
+    constructor(props) {
+
+        super(props)
+
+        this.state = {
+
+            isShowEthHelp: false
+        }
+    }
+
     login() {
        
        let userName = this.refs.userName.value;
        let password = this.refs.password.value;
+       let secondPassword = this.refs.secondPassword.value;
        let ethAddress = this.refs.ethAddress.value;
 
        if(utils.isEmpty(userName)){
@@ -21,6 +32,12 @@ export default class Register extends Component{
 
             message.error('请填写密码');
             return;
+       }
+
+       if(password !== secondPassword) {
+
+          message.error('两次输入的密码不正确');
+          return;
        }
 
        if(utils.isEmpty(ethAddress)) {
@@ -45,7 +62,21 @@ export default class Register extends Component{
        })  
     }
 
+    showEthHelp() {
 
+        this.setState({
+
+            isShowEthHelp: true
+        })
+    }
+
+    hideEthHelp(){
+
+        this.setState({
+
+            isShowEthHelp: false
+        })
+    }
  
     render() {
 
@@ -67,12 +98,32 @@ export default class Register extends Component{
                     </div>
 
                     <div className="login-layout db">
+                        <div className="left">确认密码</div>
+                        <div className="right db1 bm">
+                            <input ref="secondPassword" type="password" placeholder="请再次输入密码"/>
+                        </div>
+                    </div>
+
+                    <div className="login-layout db">
                         <div className="left">钱包地址</div>
                         <div className="right db1 bm">
                             <input ref="ethAddress" type="type" placeholder="请输入钱包地址"/>
                         </div>
+                        <div className="btn bm" onClick={this.showEthHelp.bind(this)}>如何获取<br/> 钱包地址？</div>
                     </div>
                     <button onClick={this.login.bind(this)}>注册</button>
+                  
+                  {
+                    this.state.isShowEthHelp ? 
+                        <div className="eth-help">
+                          <span className="close" onClick={this.hideEthHelp.bind(this)}></span>
+                          <h3>获取ETH钱包地址</h3>
+                          <div className="guide"></div>
+                          <h5>点击metamask首页昵称处<br/>可复制钱包地址</h5>
+                        </div>
+                    :""
+                  }
+                    
                 </div>
             )
     }

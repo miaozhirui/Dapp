@@ -24,7 +24,8 @@ export function fetch(opt) {
 
     e.on('overtime', () => {
 
-        this.tipInfo({ content: '您的网络有点儿慢...' });
+        // this.tipInfo({ content: '您的网络有点儿慢...' });
+        message.error('您的网络有点儿慢...');
     })
 
     let timer = setInterval(() => {

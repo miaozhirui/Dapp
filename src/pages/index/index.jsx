@@ -1,6 +1,6 @@
 
 <div id="home">
-    <Spin size="large" wrapperClassName="loading" spinning={this.state.loading}>
+{/*<Spin size="large" wrapperClassName="loading" spinning={this.state.loading}>*/}
         <nav>
             <div className="content">
                 <div className="left">
@@ -10,6 +10,11 @@
             </div>
         </nav>
         <div className="game">
+            {
+                this.state.isLoading ? 
+                    <Loading />
+                :""
+            }
             {
                 this.state.isShowLogin ?
                     <Login 
@@ -104,6 +109,12 @@
                                             </span>
                                             <span className="dice">
                                                 <span  className={classnames("icon", `dice${item.officalPoint}`)}></span>
+
+                                            </span>
+                                            <span>
+                                                    {
+                                                        item.gameResult === 1 ? item.winEth : '--'
+                                                    }
                                             </span>
                                             <button></button>
                                         </li>
@@ -186,5 +197,6 @@
             </div>
             
         </div>
-    </Spin>
+        
+{/*</Spin>*/}
 </div>

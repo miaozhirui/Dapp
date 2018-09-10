@@ -15,7 +15,7 @@ export default class BetResult extends Component {
             isShowWin:false,
             isShowLost:false,
             // time:10,
-            time:2,
+            time:10,
             betEth:'',
             winEth:'',
             points:"",
@@ -26,7 +26,7 @@ export default class BetResult extends Component {
     componentDidMount(){
 
         // let counter = 10;
-        let counter = 2;
+        let counter = 10;
         let timer = setInterval(() => {
             
             if(counter == 1){

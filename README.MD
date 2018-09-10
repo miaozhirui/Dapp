@@ -13,3 +13,5 @@
 1. `npm run build`
 
 2. 拷贝dist文件夹至服务器即可
+
+dirt mad tumble tide sketch just farm know network street choice update

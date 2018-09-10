@@ -13,11 +13,12 @@ export default function fillmoney(opt) {
         
         pageWeb3.init(this); //检查metaMask的网络情况
 
-        if(!pageWeb3.web3) return;
+        if(!pageWeb3.web3 || (pageWeb3.accounts.length===0)) return;
 
         this.setState({
-            loading:true
+            isLoading:true
         })
+        console.log(111)
 
         let fillRate = 0.01;
 
@@ -42,12 +43,13 @@ export default function fillmoney(opt) {
 
                 self.setState({
 
-                    loading: false
+                    isLoading: false
                 })
                 return;
             }
 
             const result = web3.eth.getTransaction(receipt, function(err, data) {
+                
 
                 if (err) return;
 
@@ -58,7 +60,7 @@ export default function fillmoney(opt) {
                 let from = accounts[0]; //用户eth的钱包地址
                 let to = officialEthAddress;
 
-                let params = { eth, gasPrice, from, to, time }
+                let params = { eth, gasPrice, from, to, time } 
 
                 let promise = utils.fetch({
 
@@ -74,7 +76,7 @@ export default function fillmoney(opt) {
 
                     self.setState({
 
-                        loading: false
+                        isLoading: false
                     })
                     resolve(res);
                 })
