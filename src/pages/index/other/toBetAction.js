@@ -1,9 +1,23 @@
 import storage from 'good-storage';
 import { utils } from 'libs';
 
+function gameRecord(data) {
+
+    let promise = utils.fetch({
+
+        url: '/api/user/gameRecord',
+        data
+    })
+
+    promise.then(res => {
+
+        storage.set('gameOutCome', res);
+        
+    })
+}
 export default function() {
 
-    let eth = this.state.eth;
+    let eth = +this.state.eth;
 
     let promise = utils.fetch({
 
@@ -13,7 +27,7 @@ export default function() {
 
     promise.then(res => {
 
-        let userToken = utils.strip(res.token);
+        let userToken = +utils.strip(res.token);
 
         if (eth > userToken) { //用户代币不够
 
@@ -26,23 +40,18 @@ export default function() {
 
         let data = this.groupDiceData();
 
-        let promise = utils.fetch({
+        this.setState({
 
-            url: '/api/user/gameRecord',
-            data
+            isShowBetResult: true
         })
 
-        promise.then(res => {
+        storage.remove('gameOutCome');
 
-            storage.set('gameOutCome', res);
+        setTimeout(() => {
 
-            this.setState({
+            gameRecord.call(this, data);
+        }, 10000);
 
-                isShowBetResult: true
-            })
-        })
     })
-
-
 
 }

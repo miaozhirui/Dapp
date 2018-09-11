@@ -18,7 +18,6 @@ export default function fillmoney(opt) {
         this.setState({
             isLoading:true
         })
-        console.log(111)
 
         let fillRate = 0.01;
 

@@ -401,7 +401,6 @@ export default class Index extends Component {
         
         let { metaMask, isLogin } = this.state;
 
-        console.log(this.state.isLoading)
         return (jsx); 
     }
 }
