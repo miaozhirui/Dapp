@@ -14,4 +14,5 @@
 
 2. 拷贝dist文件夹至服务器即可
 
-dirt mad tumble tide sketch just farm know network street choice update
+官方的token
+钱包地址的私钥478bacd5cb7356745421e389c626c91623f80c159e8d2fdc78d1f9a68de731fa

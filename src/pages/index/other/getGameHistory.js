@@ -19,13 +19,13 @@ export default function() {
 
                 gameHistoryList: res
             })
+
+            getHistory();
         })
     }
 
-    setInterval(() => {
 
-        getHistory()
-    }, 3000)
+    getHistory()
 
     getHistory();
 }
