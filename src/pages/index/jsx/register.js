@@ -14,6 +14,8 @@ export default class Register extends Component{
 
             isShowEthHelp: false
         }
+
+
     }
 
     login() {
@@ -22,6 +24,8 @@ export default class Register extends Component{
        let password = this.refs.password.value;
        let secondPassword = this.refs.secondPassword.value;
        let ethAddress = this.refs.ethAddress.value;
+       console.log(typeof ethAddress)
+       console.log(ethAddress)
 
        if(utils.isEmpty(userName)){
 
@@ -45,6 +49,28 @@ export default class Register extends Component{
             message.error('请填写钱包地址');
             return ;
        }
+
+       if(!ethAddress.startsWith('0x')) {
+
+            message.error('钱包地址格式不对');
+            return;
+       }
+
+       if(ethAddress.length !== 42) {
+
+            message.error('钱包地址格式不对');
+            return;
+       }
+
+       try{
+
+          ethAddress.toString(10);
+       }catch(e) {
+          message.error('钱包地址格式不对');
+          return;
+       }  
+
+
         
        let data = { userName, password, ethAddress }
 
