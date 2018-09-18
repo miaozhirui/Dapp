@@ -29,7 +29,7 @@ module.exports = appInfo => {
   config.cors = {
 
       origin: "*",
-      allowMethods:'GET,HEAD,PUT,POST,DELETE,PATCH'
+      allowMethods:'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
   }
 
   config.mongoose = {
