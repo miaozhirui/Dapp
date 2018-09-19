@@ -11,7 +11,7 @@ module.exports = app => {
     router.post('/api/frontMonitor', 'monitor.index');
 
     router.post('/api/user/login', 'user.login');
-
+ 
     router.post('/api/user/register', 'user.register');
 
     router.get('/api/user/isLogin', 'user.isLogin');
@@ -23,4 +23,11 @@ module.exports = app => {
     router.post('/api/user/withdraw', 'account.withdraw');
 
     router.get('/api/game/getHistoryList', 'game.getHistoryList');
+
+
+    //贷钞相关
+    router.post('/api/daichao/genChannel', 'daichao.genChannel');
+    router.get('/api/daichao/getChannelList', 'daichao.getChannelList');
+    router.get('/api/daichao/deleteChannel', 'daichao.deleteChannel');
+    
 };
