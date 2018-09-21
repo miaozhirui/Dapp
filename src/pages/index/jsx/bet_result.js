@@ -131,7 +131,10 @@ export default class BetResult extends Component {
 
 
             return ( <div className = "wait-page">
-                <p> 庄家已提交! </p> <p> 请耐心等待... </p> <p> <span> { time } s </span>后开奖</p>
+                    <p>已邀请人数 <span>{this.props.invitePeople}</span></p>
+                    <p> 庄家已提交! </p> 
+                    <p> 请耐心等待... </p> 
+                    <p> <span> { time } s </span>后开奖</p>
                 </div>
             )
         }

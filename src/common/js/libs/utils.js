@@ -1,6 +1,6 @@
 import EventEmitter from './events';
 import axios from 'axios';
-import {message} from 'antd'
+import { message } from 'antd'
 
 export function showLoading() {
 
@@ -20,82 +20,82 @@ export function fetch(opt) {
 
     return new Promise((resolve, reject) => {
 
-    let e = new EventEmitter();
+        let e = new EventEmitter();
 
-    e.on('overtime', () => {
+        e.on('overtime', () => {
 
-        // this.tipInfo({ content: '您的网络有点儿慢...' });
-        // message.error('您的网络有点儿慢...');
-    })
+            // this.tipInfo({ content: '您的网络有点儿慢...' });
+            // message.error('您的网络有点儿慢...');
+        })
 
-    let timer = setInterval(() => {
+        let timer = setInterval(() => {
 
-        e.emit('overtime');
-        clearInterval(timer);
-    }, 10000)
+            e.emit('overtime');
+            clearInterval(timer);
+        }, 10000)
 
-    //当状态码不是0的时候，是否提示错误信息
-    let errorTip = typeof opt.errorTip === 'undefined' ? true : false;
+        //当状态码不是0的时候，是否提示错误信息
+        let errorTip = typeof opt.errorTip === 'undefined' ? true : false;
 
-    //是否有加载提示
-    let loadingTip = typeof opt.loadingTip === "undefined" ? true : false;
+        //是否有加载提示
+        let loadingTip = typeof opt.loadingTip === "undefined" ? true : false;
 
-    loadingTip && showLoading();
+        loadingTip && showLoading();
 
-    let defaultParams = {
+        let defaultParams = {
 
-        method: 'POST',
-        headers: {
+            method: 'POST',
+            headers: {
 
-            "Content-Type": "application/json;charset=UTF-8"
+                "Content-Type": "application/json;charset=UTF-8"
+            }
         }
-    }
 
-    let options = Object.assign(defaultParams, opt);
-    
-    // redirectUrl(options)
+        let options = Object.assign(defaultParams, opt);
 
-    axios(options)
-        .then(response => {
+        // redirectUrl(options)
 
-            clearInterval(timer);
+        axios(options)
+            .then(response => {
 
-            loadingTip && hideLoading();
+                clearInterval(timer);
 
-            let data = response.data;
+                loadingTip && hideLoading();
 
-
-            if (data.code != 0) {
-
-               
-                message.error(data.message)
-            } else {
-
-                resolve(data.data);
-            }
-        })
-        .catch(error => {
-
-            clearInterval(timer);
-
-            loadingTip && hideLoading();
+                let data = response.data;
 
 
-            if (error.toString().indexOf('Network Error') > -1) {
+                if (data.code != 0) {
 
-               
-                return;
-            }
 
-            let data = error.response.data;
-            if ((data.statusCode == 403) && (data.message == '验证登录信息失败')) {
+                    message.error(data.message)
+                } else {
 
-              
-                return;
-            }
+                    resolve(data.data);
+                }
+            })
+            .catch(error => {
 
-            
-        })
+                clearInterval(timer);
+
+                loadingTip && hideLoading();
+
+
+                if (error.toString().indexOf('Network Error') > -1) {
+
+
+                    return;
+                }
+
+                let data = error.response.data;
+                if ((data.statusCode == 403) && (data.message == '验证登录信息失败')) {
+
+
+                    return;
+                }
+
+
+            })
     })
 }
 
@@ -120,10 +120,49 @@ export function isEmpty(str) {
 }
 
 export function strip(num, precision = 12) {
-  
-  num = +num
 
-  num = parseFloat(+num.toPrecision(precision));
+    num = +num
 
-  return num.toFixed(4);
+    num = parseFloat(+num.toPrecision(precision));
+
+    return num.toFixed(4);
+}
+
+exports.getParams = (key, url) => {
+
+    let queryString = location.search.slice(1);
+    let params = {};
+
+    let temParams = queryString.split('&');
+
+    for (let i = 0; i < temParams.length; i++) {
+
+        let temData = temParams[i].split('=');
+
+        params[temData[0]] = temData[1] || '';
+    }
+
+    return !!key ? params[key] : params;
+}
+
+exports.addEvent = (...args) => {
+    
+    if (window.TDAPP) {
+
+        TDAPP.onEvent( ...args);
+        return;
+    }
+
+    let timer = setInterval(function() {
+        try {
+
+            TDAPP && clearInterval(timer);
+
+            TDAPP.onEvent(...args);
+
+        } catch (e) {
+
+            console.log(e);
+        }
+    }, 1000);
 }

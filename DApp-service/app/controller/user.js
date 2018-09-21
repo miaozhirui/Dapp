@@ -11,7 +11,8 @@ module.exports = class Login extends BaseController {
         const { ctx } = this;
 
         const bodyParams = ctx.request.body;
-
+        
+          
         try {
 
             let info = await ctx.model.User.findOne({
@@ -51,7 +52,13 @@ module.exports = class Login extends BaseController {
         const { ctx } = this;
         const bodyParams = ctx.request.body;
 
+        let code = bodyParams.inviteCode;
+        
+        let inviteCode = ctx.helper.getInviteCode();
+
         try {
+            
+            await ctx.model.User.update({inviteCode:code},{$inc:{invitePeople:+ 1}});
 
             let userInfo = await ctx.model.User.findOne({
 
@@ -68,11 +75,13 @@ module.exports = class Login extends BaseController {
             }
 
 
+
             let info = await ctx.model.User.create({
 
                 userName: bodyParams.userName,
                 password: bodyParams.password,
                 userAddress: bodyParams.ethAddress,
+                inviteCode,
                 token: 0
             })
 

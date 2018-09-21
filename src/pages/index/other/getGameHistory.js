@@ -19,8 +19,11 @@ export default function() {
 
                 gameHistoryList: res
             })
+            
+            setTimeout(() => {
 
-            getHistory();
+                getHistory();
+            },2000)
         })
     }
 

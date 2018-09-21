@@ -22,6 +22,15 @@ module.exports = app => {
 
         token:{
             type:Number
+        },
+
+        inviteCode:{
+            type:String
+        },
+
+        invitePeople:{
+            type:Number,
+            default:0
         }
     })
  

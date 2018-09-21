@@ -18,7 +18,7 @@ import storage from 'good-storage';
 import getGameHistory from './other/getGameHistory';
 import getAccount from './other/getAccount';
 import {Spin} from 'antd';
-      
+       
 moment.locale('zh-cn')   
   
 export default class Index extends Component { 
@@ -43,7 +43,7 @@ export default class Index extends Component {
         this.state = { 
             isLoading:false,
             token:0,
-            winProb:winProb,
+            winProb:winProb, 
             odds:odds,  
             dice2: this.dice2Data, 
             eths, 
@@ -57,6 +57,8 @@ export default class Index extends Component {
             isShowAccount:false,//是否显示余额不足页面
             isShowBetResult: false,//是否显示下注结果页面
             isShowRechargeWithDraw:false,//是否显示充值页面
+            inviteCode:"",
+            invitePeople:0
         } 
          
    
@@ -97,18 +99,18 @@ export default class Index extends Component {
             eths,//重置可选择的下注量
             eth: bet
         })
-    }
-
+    } 
+ 
     getMaxBet(odds) {
-        
+         
         let maxWin = 1;//最大的存赢钱
         return maxWin/(odds-1);
-    }
+    } 
 
     componentDidMount() { 
         
         this.updateBet();
-
+ 
         // pageWeb3.init(this);
          
         judgeUserIsLogin.init(this);
@@ -118,9 +120,15 @@ export default class Index extends Component {
 
             this.setState({
 
-                token: utils.strip(data.token) 
+                token: utils.strip(data.token),
+                invitePeople: data.invitePeople,
+                inviteCode: data.inviteCode
             })
         })
+
+        let channelId = utils.getParams('channelId');
+        console.log(channelId)
+        utils.addEvent(`来自-${channelId}-渠道`)
     }
 
     updateToken(value){ 

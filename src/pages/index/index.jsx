@@ -50,6 +50,7 @@
                     token = {this.state.token}
                     updateToken = {this.updateToken.bind(this)}
                     closePop = {this.closePop.bind(this)}
+                    invitePeople={this.state.invitePeople}
                     />
                 :""
             }
@@ -74,7 +75,12 @@
                 }
                 {
                     isLogin !== false ?
-                        <p className="with-draw" onClick={e => this.handleWithDraw()}>提现</p>
+                        <div>
+                            
+                           <p className="invite" onClick={e => this.handleWithDraw()}>提现</p>
+                           <p className="invite">您的邀请码: {this.state.inviteCode}</p> 
+                        </div>
+                        
                     :""
 
                 }

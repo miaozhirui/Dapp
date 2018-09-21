@@ -27,7 +27,9 @@ module.exports = class Account extends BaseController {
 
             this.success({
 
-                token:info.token
+                token:info.token,
+                invitePeople:info.invitePeople,
+                inviteCode:info.inviteCode
             })
         }catch(error){
 

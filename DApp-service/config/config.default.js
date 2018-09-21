@@ -1,45 +1,55 @@
 'use strict';
 
 module.exports = appInfo => {
-  const config = {};
 
-  // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_1529734946207_8937';
+    const config = {};
 
-  // add your config here
-  config.middleware = [
-      'robot',
-  ];
+    // use for cookie sign key, should change to your own and keep security
+    config.keys = appInfo.name + '_1529734946207_8937';
 
-  config.view = {
-      defaultViewEngine: 'ejs',
-      mapping: {
-          '.html': 'ejs',
-      }
-  }
+    // add your config here
+    config.middleware = [
+        'robot',
+    ];
 
-  config.robot = {
-      ua:[/Baiduspider/i]
-  }
+    config.view = {
+        defaultViewEngine: 'ejs',
+        mapping: {
+            '.html': 'ejs',
+        }
+    }
 
-  config.security = {
-      csrf:false,
+    config.robot = {
+        ua: [/Baiduspider/i]
+    }
 
-  }
-  config.cors = {
+    config.security = {
+        csrf: false,
 
-      origin: "*",
-      allowMethods:'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
-  }
+    }
+    config.cors = {
 
-  config.mongoose = {
+        origin: "*",
+        allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
+    }
 
-      client: {
-          url: 'mongodb://credan:Credan!88@127.0.0.1/dice-game'
-          // url: 'mongodb://127.0.0.1/dice-game'
-      }
-  }
+    if (appInfo.env === 'local') {
 
+        config.mongoose = {
 
-  return config;
+            client: {
+                url: 'mongodb://127.0.0.1/dice-game'
+            }
+        }
+    } else {
+        config.mongoose = {
+
+            client: {
+                url: 'mongodb://credan:Credan!88@127.0.0.1/dice-game'
+                // url: 'mongodb://127.0.0.1/dice-game'
+            }
+        }
+    }
+
+    return config;
 };

@@ -24,8 +24,7 @@ export default class Register extends Component{
        let password = this.refs.password.value;
        let secondPassword = this.refs.secondPassword.value;
        let ethAddress = this.refs.ethAddress.value;
-       console.log(typeof ethAddress)
-       console.log(ethAddress)
+       let inviteCode = this.refs.inviteCode.value;
 
        if(utils.isEmpty(userName)){
 
@@ -72,7 +71,7 @@ export default class Register extends Component{
 
 
         
-       let data = { userName, password, ethAddress }
+       let data = { userName, password, ethAddress, inviteCode }
 
        let promise = utils.fetch({
 
@@ -129,6 +128,13 @@ export default class Register extends Component{
                             <input ref="secondPassword" type="password" placeholder="请再次输入密码"/>
                         </div>
                     </div>
+                    
+                    <div className="login-layout db">
+                        <div className="left">邀请码</div>
+                        <div className="right db1 bm">
+                            <input ref="inviteCode" type="type" placeholder="请填写邀请码(非必填)"/>
+                        </div>
+                    </div>
 
                     <div className="login-layout db">
                         <div className="left">钱包地址</div>
@@ -137,6 +143,7 @@ export default class Register extends Component{
                         </div>
                         <div className="btn bm" onClick={this.showEthHelp.bind(this)}>如何获取<br/> 钱包地址？</div>
                     </div>
+                    
                     <button onClick={this.login.bind(this)}>注册</button>
                   
                   {
